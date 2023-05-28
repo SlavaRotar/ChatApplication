@@ -1,5 +1,6 @@
 package com.example.chatapplication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Email
@@ -60,6 +61,7 @@ class Login : AppCompatActivity() {
 
 
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun login(email: String, password: String){
     //logic for login user
         mAuth.signInWithEmailAndPassword(email, password)
