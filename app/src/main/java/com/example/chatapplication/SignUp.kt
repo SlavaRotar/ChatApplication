@@ -58,7 +58,7 @@ class SignUp : ComponentActivity() {
                     finish()
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@SignUp,"Some error occured", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SignUp,"Email is already in use", Toast.LENGTH_SHORT).show()
                 }
             }
     }

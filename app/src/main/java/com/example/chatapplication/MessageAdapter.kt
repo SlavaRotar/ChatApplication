@@ -18,17 +18,17 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-    if (viewType == 1){
-        // inflate receive
-        val  view: View = LayoutInflater.from(context).inflate(R.layout.recieve, parent, false)
-        return ReceiveViewHolder(view)
+        if (viewType == 1){
+            // inflate receive
+            val  view: View = LayoutInflater.from(context).inflate(R.layout.receive, parent, false)
+            return ReceiveViewHolder(view)
 
-    }else{
-        //inflate sent
-        val  view: View = LayoutInflater.from(context).inflate(R.layout.sent, parent, false)
-        return SentViewHolder(view)
+        }else{
+            //inflate sent
+            val  view: View = LayoutInflater.from(context).inflate(R.layout.sent, parent, false)
+            return SentViewHolder(view)
 
-    }
+        }
 
     }
 
