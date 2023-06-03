@@ -13,7 +13,7 @@ import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
-class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) :
+class MessageAdapter(val context: Context, val messageList: ArrayList<Message>, val senderUid: String) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val ITEM_RECEIVE = 1
@@ -56,11 +56,11 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
         if (holder.javaClass == SentViewHolder::class.java) {
             //for sent view holder
             val viewHolder = holder as SentViewHolder
-            viewHolder.bind(currentMessage, context)
+            viewHolder.bind(currentMessage, context, senderUid)
         } else {
             //for receive view holder
             val viewHolder = holder as ReceiveViewHolder
-            viewHolder.bind(currentMessage, context)
+            viewHolder.bind(currentMessage, context, senderUid)
         }
     }
 
@@ -79,9 +79,9 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
     class SentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent_message)
 
-        fun bind(message: Message, context: Context) {
-            val password = "yourSecretPassword12345" // Change this to your own secret password
-            val decryptedMessage = decryptMessage(message.message!!, password)
+        fun bind(message: Message, context: Context, senderUid: String) {
+            //val password = senderUid //secret password
+            val decryptedMessage = decryptMessage(message.message!!, senderUid)
             sentMessage.text = decryptedMessage
         }
 
@@ -97,9 +97,9 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
     class ReceiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val receiveMessage = itemView.findViewById<TextView>(R.id.txt_receive_message)
 
-        fun bind(message: Message, context: Context) {
-            val password = "yourSecretPassword12345" // Change this to your own secret password
-            val decryptedMessage = decryptMessage(message.message!!, password)
+        fun bind(message: Message, context: Context, senderUid: String) {
+            //val password = senderUid //secret password
+            val decryptedMessage = decryptMessage(message.message!!, senderUid)
             receiveMessage.text = decryptedMessage
         }
 

@@ -34,26 +34,21 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
         val name = intent.getStringExtra("name")
         val receiverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().getReference()
-
         senderRoom = receiverUid + senderUid
         receiverRoom = senderUid + receiverUid
-
         supportActionBar?.title = name
-
-
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.messageBox)
         sendButton = findViewById(R.id.sentButton)
         messageList = ArrayList()
-        messageAdapter = MessageAdapter(this, messageList)
-
+        messageAdapter = MessageAdapter(this, messageList, senderUid = senderUid?: "")
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
+
 
         //add data to recyclerView
         mDbRef.child("chats").child(senderRoom!!).child("messages")
@@ -82,8 +77,7 @@ class ChatActivity : AppCompatActivity() {
 
         sendButton.setOnClickListener {
             val message = messageBox.text.toString()
-            val password = "yourSecretPassword12345" // Change this to your own secret password
-            val encryptedMessage = encryptMessage(message, password) // Encrypt the message
+            val encryptedMessage = encryptMessage(message, senderUid!!) // Encrypt the message
 
             val messageObject = Message(encryptedMessage, senderUid)
 
